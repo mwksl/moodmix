@@ -7,8 +7,7 @@
 </script>
 
 <div>
-	<h1>Recommendations</h1>
-	<h2>Films</h2>
+	<h1 class="bold space-y-2 mt-2">Films</h1>
 	{#each films as film}
 		<article class="prose">
 			<p>Title: {film.film}</p>
@@ -16,7 +15,8 @@
 			<p>Description: {film.film_description}</p>
 		</article>
 	{/each}
-	<h2>Series</h2>
+	<div class="divider" />
+	<h1 class="bold space-y-2 mt-2">Series</h1>
 	{#each series as show}
 		<article class="prose">
 			<p>Title: {show.series}</p>
@@ -24,7 +24,8 @@
 			<p>Description: {show.series_description}</p>
 		</article>
 	{/each}
-	<h2>Albums</h2>
+	<div class="divider" />
+	<h1 class="bold space-y-2 mt-2">Albums</h1>
 	{#each albums as albumPick}
 		<article class="prose">
 			<p>Title: {albumPick.album}</p>
