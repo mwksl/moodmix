@@ -77,6 +77,8 @@
         background-color: #eee;
     }
 </style>
+<!-- add a label to the input field -->
+<label class="label">Enter an Album: </label>
 <input
   type="text"
   class="daisy-input"
