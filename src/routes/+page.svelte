@@ -58,7 +58,7 @@
 			<p>Moodmix is an AI media recommender using ChatGPT. It suggests films, music, and movies based on the album you're playing. </p>
 			<p>Note: It may take up to 10 secs for the AI model to complete your request.</p>
 		</article>
-		<TypeAhead on:albumSelected={handleAlbumSelection} />
+		<TypeAhead class="mt-2" on:albumSelected={handleAlbumSelection} />
 
 		<form
 			class="my-4"
