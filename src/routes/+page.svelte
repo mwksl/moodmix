@@ -7,7 +7,6 @@
 	import Recommendations from "$lib/Recommendations.svelte";
 
 	let albumToRequest = {};
-	let startTime = Date.now();
 	let requestCounter = 0;
 	let intervalId;
 	let responseData;
@@ -24,11 +23,19 @@
 
 	let requestId = uuid();
 
+
 	function handleAlbumSelection(event) {
 		albumToRequest = event.detail;
 	}
 
 	async function fetchRecommendations() {
+		if (responseData) {
+			// Reset the request
+			requestCounter = 1;
+			albumToRequest = {};
+			responseData = null;
+			requestId = uuid();
+		}
 		// Set up an interval to check for a response every second
 		intervalId = setInterval(async () => {
 		// Increment the counter
