@@ -83,6 +83,7 @@
 			{/if}
 			{#if responseData}
 				<Recommendations recommendations={responseData[0].recommendations} />
+				<p>load time: {requestCounter} seconds</p>
 			{/if}
 			<!-- disable the button if albumToRequest is empty or if the input is empty -->
 			<button
