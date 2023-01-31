@@ -1,12 +1,12 @@
 <script>
-	import Film from '$lib/Film.svelte';
 
 	export let recommendations = {};
 
-	const { films, albums, series } = recommendations;
+	const { films, albums, series, mood } = recommendations;
 </script>
 
 <div>
+	<h1 class="text-xl bold mb-4">Mood: {mood}</h1>
 	<h1 class="bold space-y-2 mt-2">Films</h1>
 	{#each films as film}
 		<article class="prose mt-8">
