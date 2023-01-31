@@ -6,6 +6,13 @@ export const actions = {
 		const artist = formData.artist;
 		const requestId = formData.requestId;
 
+		if (!album || !artist || !requestId) {
+			return {
+				status: 400,
+				error: 'Missing required fields'
+			};
+		}
+
 
 		// Make external API call
 		try {

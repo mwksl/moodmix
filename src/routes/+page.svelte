@@ -10,6 +10,7 @@
 	let requestCounter = 0;
 	let intervalId;
 	let responseData;
+	let timeoutWarning;
 
 	const uuid = () => {
 		let dt = new Date().getTime();
@@ -27,16 +28,32 @@
 		albumToRequest = event.detail;
 	}
 
+	function reset() {
+		// Reset the request
+		requestCounter = 0;
+		albumToRequest = {};
+		responseData = null;
+		requestId = uuid();
+	}
+
 	async function fetchRecommendations() {
 		if (responseData) {
-			// Reset the request
-			requestCounter = 1;
-			albumToRequest = {};
-			responseData = null;
-			requestId = uuid();
+			clearInterval(intervalId);
+			reset();
 		}
 		// Set up an interval to check for a response every second
 		intervalId = setInterval(async () => {
+			if (requestCounter > 60) {
+				timeoutWarning = true;
+				// wait 5 seconds before resetting
+				setTimeout(() => {
+					timeoutWarning = false;
+					clearInterval(intervalId);
+					reset();
+				}, 5000);
+
+				console.log("Request Timed Out");
+			}
 			// Increment the counter
 			requestCounter += 1;
 			const { data, error } = await supabase
@@ -62,8 +79,9 @@
 		<article class="prose">
 			<h1>Moodmix</h1>
 			<p>
-				Moodmix is an AI media recommender using ChatGPT. It suggests films, music, and movies based
-				on the album you're playing.
+				Moodmix is an AI-powered media recommendation tool that utilizes ChatGPT technology. It
+				analyzes the album you're playing and identifies your mood, then suggests relevant films,
+				music, and movies to enhance your current mood.
 			</p>
 			<p>Note: It may take up to 60 seconds for the AI model to complete your request.</p>
 		</article>
@@ -80,6 +98,9 @@
 			<input type="hidden" name="album" bind:value={albumToRequest.album} />
 			<input type="hidden" name="artist" bind:value={albumToRequest.artist} />
 			<input type="hidden" name="requestId" bind:value={requestId} />
+			{#if timeoutWarning}
+				<div class="mt-4">Request timed out. Please try again.</div>
+			{/if}
 			{#if intervalId && !responseData}
 				<div class="mt-4">Loading... {requestCounter}</div>
 			{/if}
@@ -90,7 +111,7 @@
 			<!-- disable the button if albumToRequest is empty or if the input is empty -->
 			<button
 				class="mt-4 bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded"
-				disabled={!albumToRequest.album || !albumToRequest.artist || intervalId && !responseData}
+				disabled={!albumToRequest.album || !albumToRequest.artist || (intervalId && !responseData)}
 			>
 				Submit
 			</button>
