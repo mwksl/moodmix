@@ -17,7 +17,7 @@ pnpm install
 pnpm dev
 ```
 
-Navigate to [localhost:3000](http://localhost:3000). You should see your app running. Edit a component file in `src`, save it, and reload the page to see your changes.
+Navigate to [localhost:3000](http://localhost:5178). You should see your app running. Edit a component file in `src`, save it, and reload the page to see your changes.
 
 ## Building and running in production mode
 
