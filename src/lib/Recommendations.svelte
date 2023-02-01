@@ -19,8 +19,12 @@
 	<h1 class="bold space-y-2 mt-2">Series</h1>
 	{#each series as show}
 		<article class="prose mt-8">
-			<p><b>Title:</b> {show.series}</p>
-			<p><b>Director:</b> {show.creators}</p>
+			<p><b>Title:</b> {show?.series}</p>
+			{#if show?.creators}
+				<p><b>Creators:</b> {show?.creators}</p>
+			{:else}
+				<p><b>Creator:</b> {show?.creator}</p>
+			{/if}
 			<p><b>Description:</b> {show.series_description}</p>
 		</article>
 	{/each}
