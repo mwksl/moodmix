@@ -16,7 +16,7 @@ export const actions = {
 
 		// Make external API call
 		try {
-			const response = await fetch(env.PATTERNS_WEHOOK, {
+			const response = await fetch(env.PATTERNS_WEBHOOK, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
