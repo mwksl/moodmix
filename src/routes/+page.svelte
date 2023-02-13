@@ -2,6 +2,7 @@
 	import { enhance } from '$app/forms';
 	import { supabase } from '$lib/supabaseClient';
 	import { onMount } from 'svelte';
+	import { v4 as uuidv4 } from 'uuid';
 
 	import TypeAhead from '$lib/TypeAhead.svelte';
 	import Recommendations from '$lib/Recommendations.svelte';
@@ -12,17 +13,7 @@
 	let responseData;
 	let timeoutWarning;
 
-	const uuid = () => {
-		let dt = new Date().getTime();
-		const uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-			const r = (dt + Math.random() * 16) % 16 | 0;
-			dt = Math.floor(dt / 16);
-			return (c === 'x' ? r : (r & 0x3) | 0x8).toString(16);
-		});
-		return uuid;
-	};
-
-	let requestId = uuid();
+	let requestId = uuidv4();
 
 	function handleAlbumSelection(event) {
 		albumToRequest = event.detail;
@@ -33,7 +24,7 @@
 		requestCounter = 0;
 		albumToRequest = {};
 		responseData = null;
-		requestId = uuid();
+		requestId = uuidv4();
 	}
 
 	async function fetchRecommendations() {
